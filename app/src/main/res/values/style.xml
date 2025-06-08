@@ -1,0 +1,45 @@
+<resources>
+
+
+    <!-- Основной стиль для кнопок -->
+    <style name="MainButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_columnWeight">1</item> <!-- Задаем пропорциональную ширину для кнопок в GridLayout -->
+        <item name="android:backgroundTint">#6EB257</item> <!-- Цвет фона кнопки -->
+        <item name="android:textColor">#FFFFFF</item> <!-- Цвет текста -->
+        <item name="android:textSize">20sp</item> <!-- Размер шрифта -->
+        <item name="android:padding">12dp</item>
+        <!-- Внутренние отступы внутри кнопки -->
+
+    </style>
+
+
+    <!-- Стиль для кнопок в горизонтальной полосе индикатора -->
+
+
+    <!-- Стиль для кнопок с ответами -->
+    <style name="AnswerButton">
+        <item name="android:layout_width">match_parent</item> <!-- Кнопки занимают всю ширину -->
+        <item name="android:layout_height">wrap_content</item> <!-- Кнопка по высоте под размер текста -->
+        <item name="android:backgroundTint">#CDE09B</item> <!-- Цвет фона -->
+        <item name="android:textColor">#1A3D26</item> <!-- Цвет текста -->
+        <item name="android:layout_marginTop">8dp</item> <!-- Отступ сверху -->
+        <item name="android:padding">12dp</item> <!-- Отступы внутри кнопки -->
+    </style>
+
+
+        <style name="QuestionIndicatorButton">
+            <item name="android:layout_width">0dp</item> <!-- Кнопки растягиваются по ширине -->
+            <item name="android:layout_height">wrap_content</item> <!-- Высота кнопки зависит от контента -->
+            <item name="android:textColor">#1A3D26</item> <!-- Цвет текста -->
+            <item name="android:background">#B3D68C</item> <!-- Цвет кнопки -->
+            <item name="android:textSize">16sp</item> <!-- Размер текста (можно настроить) -->
+            <item name="android:gravity">center</item> <!-- Текст по центру -->
+            <item name="android:padding">10dp</item> <!-- Отступы внутри кнопки -->
+            <item name="android:layout_margin">4dp</item> <!-- Отступы между кнопками -->
+           
+        </style>
+
+
+</resources>
