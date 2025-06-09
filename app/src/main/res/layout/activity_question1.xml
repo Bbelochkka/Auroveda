@@ -101,7 +101,11 @@
 
 
         <!-- Пример кнопок -->
-        <Button android:text="1" style="@style/QuestionIndicatorButton" android:layout_weight="1"/>
+        <Button
+            style="@style/QuestionIndicatorButton"
+            android:layout_weight="1"
+            android:text="1"
+            android:textColorLink="#F5F1FF" />
         <Button style="@style/QuestionIndicatorButton" android:layout_weight="1" android:text="2" />
         <Button android:text="3" style="@style/QuestionIndicatorButton" android:layout_weight="1"/>
         <Button android:text="4" style="@style/QuestionIndicatorButton" android:layout_weight="1"/>
