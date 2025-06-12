@@ -13,6 +13,12 @@
         <!-- Внутренние отступы внутри кнопки -->
 
     </style>
+<!--    <style name="QuestionIndicatorButton">-->
+<!--        <item name="android:background">@color/default_question_indicator</item>-->
+<!--        <item name="android:textColor">#1A3D26</item>-->
+<!--        <item name="android:textSize">14sp</item>-->
+<!--        <item name="android:padding">8dp</item>-->
+<!--    </style>-->
 
 
     <!-- Стиль для кнопок в горизонтальной полосе индикатора -->

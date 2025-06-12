@@ -98,6 +98,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return tickets;
     }
+    public List<Question> getQuestionsByCardId(int cardId) {
+        List<Question> questions = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        if (!isTableExists(db, "questions")) {
+            Log.e("Database", "Table 'questions' does not exist!");
+            return questions;
+        }
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM questions WHERE card_id = ?",
+                new String[]{String.valueOf(cardId)}
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("question_id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("question_name"));
+                String answer = cursor.getString(cursor.getColumnIndexOrThrow("question_ans"));
+                String option1 = cursor.getString(cursor.getColumnIndexOrThrow("question_option1"));
+                String option2 = cursor.getString(cursor.getColumnIndexOrThrow("question_option2"));
+
+                questions.add(new Question(id, name, answer, option1, option2));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return questions;
+    }
+
 
     private boolean isTableExists(SQLiteDatabase db, String tableName) {
         Cursor cursor = db.rawQuery(

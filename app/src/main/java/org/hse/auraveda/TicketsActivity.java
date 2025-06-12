@@ -2,6 +2,7 @@ package org.hse.auraveda;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -69,13 +70,14 @@ public class TicketsActivity extends AppCompatActivity {
 
             // Обработка нажатия
             button.setOnClickListener(v -> {
-                // Ваша логика при нажатии на билет
-                Toast.makeText(TicketsActivity.this,
-                        "Выбран билет: " + ticket.getName(),
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(TicketsActivity.this, QuestionActivity.class);
+                intent.putExtra("CARD_ID", ticket.getId());
+                startActivity(intent);
             });
+
 
             buttonsContainer.addView(button);
         }
+
     }
 }
