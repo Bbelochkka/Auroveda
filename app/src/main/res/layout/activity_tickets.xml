@@ -35,91 +35,13 @@
         app:layout_constraintTop_toBottomOf="@id/topBar">
 
         <LinearLayout
+            android:id="@+id/buttonsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="8dp">
 
-            <!-- Кнопки билетов -->
-            <Button
-                android:id="@+id/buttonTicket1"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 1" />
-
-            <Button
-                android:id="@+id/buttonTicket2"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 2" />
-
-            <Button
-                android:id="@+id/buttonTicket3"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 3" />
-
-            <Button
-                android:id="@+id/buttonTicket4"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 4" />
-
-            <Button
-                android:id="@+id/buttonTicket5"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 5" />
-
-            <Button
-                android:id="@+id/buttonTicket6"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 6" />
-
-            <Button
-                android:id="@+id/buttonTicket7"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 7" />
-
-            <Button
-                android:id="@+id/buttonTicket8"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 8" />
-
-            <Button
-                android:id="@+id/buttonTicket9"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 9" />
-
-            <Button
-                android:id="@+id/buttonTicket10"
-                style="@style/MainButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Билет 10" />
+            <!-- Кнопки будут добавляться динамически -->
         </LinearLayout>
     </ScrollView>
 
