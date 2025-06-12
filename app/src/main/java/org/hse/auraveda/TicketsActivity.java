@@ -2,9 +2,13 @@ package org.hse.auraveda;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -12,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -42,25 +47,34 @@ public class TicketsActivity extends AppCompatActivity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         List<Ticket> tickets = dbHelper.getAllTickets();
 
-        // Получаем контейнер для кнопок
-        LinearLayout buttonsContainer = findViewById(R.id.buttonsContainer); // Убедитесь, что в XML есть этот ID
-
         File dbFile = getDatabasePath("auroveda.db");
         Log.d("DatabasePath", "Database path: " + dbFile.getAbsolutePath());
         Log.d("DatabasePath", "Database exists: " + dbFile.exists());
         Log.d("DatabasePath", "Database size: " + dbFile.length() + " bytes");
 
+        // Получаем контейнер для кнопок
+        LinearLayout buttonsContainer = findViewById(R.id.buttonsContainer);
+        LayoutInflater inflater = LayoutInflater.from(this);
+
         // Динамическое создание кнопок
         for (Ticket ticket : tickets) {
-            Button button = new Button(this);
+            // Инфлейтим макет кнопки
+            Button button = (Button) inflater.inflate(
+                    R.layout.item_button,
+                    buttonsContainer,
+                    false
+            );
+
             button.setText(ticket.getName());
-            button.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            button.setPadding(16, 16, 16, 16);
+
+            // Обработка нажатия
             button.setOnClickListener(v -> {
-                // Обработка нажатия на кнопку
+                // Ваша логика при нажатии на билет
+                Toast.makeText(TicketsActivity.this,
+                        "Выбран билет: " + ticket.getName(),
+                        Toast.LENGTH_SHORT).show();
             });
+
             buttonsContainer.addView(button);
         }
     }
