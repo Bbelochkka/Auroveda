@@ -147,9 +147,18 @@
     app:layout_constraintEnd_toEndOf="parent">
 
 
-    <Button android:text="Предписанные обязанности в зависимости от качеств и социального положения" style="@style/AnswerButton"/>
-    <Button android:text="Здоровье" style="@style/AnswerButton"/>
-    <Button android:text="Негативный стереотип поведения, который тормозит наше развитие." style="@style/AnswerButton"/>
+    <Button
+        android:id="@+id/option1"
+        android:text="Предписанные обязанности в зависимости от качеств и социального положения"
+        style="@style/AnswerButton"/>
+    <Button
+        android:id="@+id/option2"
+        android:text="Здоровье"
+        style="@style/AnswerButton"/>
+    <Button
+        android:id="@+id/option3"
+        android:text="Негативный стереотип поведения, который тормозит наше развитие."
+        style="@style/AnswerButton"/>
 </LinearLayout>
 
 

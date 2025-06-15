@@ -1,6 +1,7 @@
 package org.hse.auraveda;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import java.util.List;
 public class QuestionActivity extends AppCompatActivity {
     private List<Question> questions = new ArrayList<>();
     private int currentQuestionIndex = 0;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class QuestionActivity extends AppCompatActivity {
         }
 
         // Загружаем вопросы для данного билета
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        dbHelper = new DatabaseHelper(this); // Убрали тип DatabaseHelper
         questions = dbHelper.getQuestionsByCardId(cardId);
 
         if (questions.isEmpty()) {
@@ -56,6 +58,7 @@ public class QuestionActivity extends AppCompatActivity {
         // Настройка UI
         setupQuestionIndicators();
         setupNavigationButtons();
+        setupAnswerButtonsListeners();
         showQuestion(0);
     }
 
@@ -97,26 +100,71 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
     }
+    private void setupAnswerButtonsListeners() {
+        LinearLayout answerLayout = findViewById(R.id.answerOptions);
+        for (int i = 0; i < answerLayout.getChildCount(); i++) {
+            Button button = (Button) answerLayout.getChildAt(i);
+            button.setOnClickListener(v -> checkAnswer(button));
+        }
+    }
+
+    private void checkAnswer(Button selectedButton) {
+        Question currentQuestion = questions.get(currentQuestionIndex);
+        String selectedAnswer = selectedButton.getText().toString();
+
+        Log.d("AnswerCheck", "Selected answer: " + selectedAnswer);
+        Log.d("AnswerCheck", "Correct answer: " + currentQuestion.getCorrectAnswer());
+        Log.d("AnswerCheck", "Question ID: " + currentQuestion.getId());
+
+        if (selectedAnswer.equals(currentQuestion.getCorrectAnswer())) {
+            selectedButton.setBackgroundColor(ContextCompat.getColor(this, R.color.correct_answer));
+            Log.d("AnswerCheck", "Answer is correct");
+        } else {
+            selectedButton.setBackgroundColor(ContextCompat.getColor(this, R.color.wrong_answer));
+            Log.d("AnswerCheck", "Answer is wrong");
+
+            // Проверяем и добавляем ошибку в базу
+            if (!dbHelper.isMistakeExists(currentQuestion.getId())) {
+                Log.d("MistakeDB", "Adding mistake for question: " + currentQuestion.getId());
+                dbHelper.addMistake(currentQuestion.getId());
+            } else {
+                Log.d("MistakeDB", "Mistake already exists for question: " + currentQuestion.getId());
+            }
+        }
+        disableAnswerButtons();
+    }
+
+    private void disableAnswerButtons() {
+        LinearLayout answerLayout = findViewById(R.id.answerOptions);
+        for (int i = 0; i < answerLayout.getChildCount(); i++) {
+            answerLayout.getChildAt(i).setEnabled(false);
+        }
+    }
+    private void resetAnswerButtons() {
+        LinearLayout answerLayout = findViewById(R.id.answerOptions);
+        for (int i = 0; i < answerLayout.getChildCount(); i++) {
+            Button button = (Button) answerLayout.getChildAt(i);
+            button.setEnabled(true);
+            button.setBackgroundColor(ContextCompat.getColor(this, R.color.default_button_color));
+        }
+    }
 
     private void showQuestion(int index) {
         currentQuestionIndex = index;
         Question question = questions.get(index);
 
-        // Обновляем верхнюю панель
         TextView questionLabel = findViewById(R.id.questionLabel);
         questionLabel.setText("Билет " + getCardId() + ", вопрос " + (index + 1));
 
-        // Обновляем текст вопроса
         TextView questionText = findViewById(R.id.questionText);
         questionText.setText(question.getName());
 
-        // Обновляем варианты ответов
         LinearLayout answerLayout = findViewById(R.id.answerOptions);
         ((Button) answerLayout.getChildAt(0)).setText(question.getOption1());
         ((Button) answerLayout.getChildAt(1)).setText(question.getOption2());
         ((Button) answerLayout.getChildAt(2)).setText(question.getCorrectAnswer());
 
-        // Обновляем индикаторы
+        resetAnswerButtons(); // Сбрасываем состояние кнопок
         updateQuestionIndicators(index);
     }
 

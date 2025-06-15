@@ -1,5 +1,6 @@
 package org.hse.auraveda;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -68,13 +69,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Не требуется, так как база уже скопирована
+        // Создаем таблицу ошибок при первом запуске
+        createMistakeTable(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Логика обновления
+        // При обновлении также создаем таблицу
+        createMistakeTable(db);
     }
+
+    private void createMistakeTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS mistake (" +
+                "mistake_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "question_id INTEGER NOT NULL UNIQUE)");
+    }
+
 
     public List<Ticket> getAllTickets() {
         List<Ticket> tickets = new ArrayList<>();
@@ -136,5 +146,59 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         boolean exists = cursor.getCount() > 0;
         cursor.close();
         return exists;
+    }
+    public boolean isMistakeExists(int questionId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db == null) {
+            return false;
+        }
+
+        // Создаем таблицу, если ее нет
+        createMistakeTable(db);
+
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery(
+                    "SELECT * FROM mistake WHERE question_id = ?",
+                    new String[]{String.valueOf(questionId)}
+            );
+
+            return cursor != null && cursor.getCount() > 0;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+    public void addMistake(int questionId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (db == null) {
+            return;
+        }
+
+        // Создаем таблицу, если ее нет
+        createMistakeTable(db);
+
+        try {
+            ContentValues values = new ContentValues();
+            values.put("question_id", questionId);
+
+            // Используем insertWithOnConflict для обработки UNIQUE constraint
+            long result = db.insertWithOnConflict(
+                    "mistake",
+                    null,
+                    values,
+                    SQLiteDatabase.CONFLICT_IGNORE
+            );
+
+            if (result == -1) {
+                Log.d("MistakeDB", "Mistake already exists for question: " + questionId);
+            } else {
+                Log.d("MistakeDB", "Mistake added for question: " + questionId);
+            }
+        } catch (SQLException e) {
+            Log.e("MistakeDB", "Error adding mistake", e);
+        }
     }
 }
