@@ -3,10 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="current_question">#FFEB3B</color>
-    <color name="default_question_indicator">#B3D68C</color>
+    <color name="default_question_indicator">#D4E6B5</color>
     <color name="correct_answer">#76C893</color>
-    <color name="default_button_color">#6EB257</color>
+    <color name="default_button_color">#D4E6B5</color>
     <!-- Неправильный ответ -->
     <color name="wrong_answer">#FF6D49</color>
+
 
 </resources>
