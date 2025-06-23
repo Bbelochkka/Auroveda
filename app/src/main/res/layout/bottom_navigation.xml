@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/bottomSettings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -43,6 +44,7 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/bottomHome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -61,6 +63,7 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/bottomStatistic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

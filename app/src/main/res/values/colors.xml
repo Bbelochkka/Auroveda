@@ -2,12 +2,20 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="current_question">#FFEB3B</color>
-    <color name="default_question_indicator">#D4E6B5</color>
-    <color name="correct_answer">#76C893</color>
-    <color name="default_button_color">#D4E6B5</color>
+    <!--<color name="current_question">#FFEB3B</color> -->
+    <!--<color name="default_question_indicator">#D4E6B5</color> -->
+    <!--<color name="correct_answer">#76C893</color> -->
+    <!--<color name="default_button_color">#D4E6B5</color> -->
     <!-- Неправильный ответ -->
-    <color name="wrong_answer">#FF6D49</color>
+    <!--<color name="wrong_answer">#FF6D49</color> -->
+    <color name="answered_question">#888888</color>
+    <color name="timer_text">#FF0000</color>
+
+    <color name="correct_answer">#6CC370</color>   <!-- Ярко-зеленый -->
+    <color name="wrong_answer">#DC8B85</color>    <!-- Ярко-красный -->
+    <color name="current_question">#DCCF88</color> <!-- Синий для текущего вопроса -->
+    <color name="default_question_indicator">#D4E6B5</color> <!-- Светло-зеленый по умолчанию -->
+    <color name="default_button_color">#AFC97E</color> <!-- Цвет кнопок по умолчанию -->
 
 
 </resources>

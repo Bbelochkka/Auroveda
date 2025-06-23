@@ -1,9 +1,13 @@
 package org.hse.auraveda;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,10 +15,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -24,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
         // Находим кнопку по ID
         Button buttonCard = findViewById(R.id.buttonCard);
         Button buttonFavourite = findViewById(R.id.buttonFavourite);
         Button buttonMistake = findViewById(R.id.buttonMistakes);
+
 
         // Устанавливаем обработчик нажатия
         buttonCard.setOnClickListener(new View.OnClickListener() {
@@ -46,14 +55,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showMistake();
+
+
+        // Находим кнопку по ID
+        ImageButton buttonStatistic = findViewById(R.id.bottomStatistic);
+
+
+        // Устанавливаем обработчик нажатия
+        buttonStatistic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showStatistics();
+
             }
         });
 
     }
+
+
     private void showTickets() {
         Intent intent = new Intent(this, TicketsActivity.class);
         startActivity(intent);
     }
+
     private void showFavourite() {
         Intent intent = new Intent(this, FavouriteActivity.class);
         startActivity(intent);
@@ -63,3 +87,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
+
+
+    private void showStatistics() {
+        Intent intent = new Intent(this, StatisticActivity.class);
+        startActivity(intent);
+    }
+}
+
+
