@@ -15,7 +15,8 @@
     <color name="wrong_answer">#DC8B85</color>    <!-- Ярко-красный -->
     <color name="current_question">#DCCF88</color> <!-- Синий для текущего вопроса -->
     <color name="default_question_indicator">#D4E6B5</color> <!-- Светло-зеленый по умолчанию -->
-    <color name="default_button_color">#AFC97E</color> <!-- Цвет кнопок по умолчанию -->
+    <color name="default_button_color">#D4E6B5</color> <!-- Цвет кнопок по умолчанию -->
+    <color name="text">#18774A</color>
 
 
 </resources>
