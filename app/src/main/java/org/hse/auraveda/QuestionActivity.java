@@ -327,7 +327,7 @@ public class QuestionActivity extends AppCompatActivity {
     private void updateNavigationButtons() {
         Button nextButton = findViewById(R.id.nextQuestionButton);
         nextButton.setEnabled(currentQuestionIndex < questions.size() - 1);
-        finishTestButton.setEnabled(allQuestionsAnswered());
+        //finishTestButton.setEnabled(allQuestionsAnswered());
     }
 
 

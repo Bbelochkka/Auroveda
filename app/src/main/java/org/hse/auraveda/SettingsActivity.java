@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -13,14 +12,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
-
-
-public class StatisticActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_statistic);
+        setContentView(R.layout.activity_settings);
 
 
         // Используем корневой ConstraintLayout из XML
@@ -33,6 +30,7 @@ public class StatisticActivity extends AppCompatActivity {
             });
         }
 
+
         // Находим кнопку по ID
         ImageButton buttonHome = findViewById(R.id.bottomHome);
         // Устанавливаем обработчик нажатия
@@ -42,35 +40,24 @@ public class StatisticActivity extends AppCompatActivity {
                 showHome();
             }
         });
-        ImageButton buttonSettings = findViewById(R.id.bottomSettings);
-        buttonSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSettings();
-            }
-        });
 
         // Находим кнопку по ID
-        Button buttonCard = findViewById(R.id.getCertificate);
+        ImageButton buttonStatistic = findViewById(R.id.bottomStatistic);
         // Устанавливаем обработчик нажатия
-        buttonCard.setOnClickListener(new View.OnClickListener() {
+        buttonStatistic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCertificate();
+                showStatistics();
             }
         });
 
-    }
-    private void showCertificate() {
-        Intent intent = new Intent(this, CertificateActivity.class);
-        startActivity(intent);
     }
     private void showHome() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    private void showSettings() {
-        Intent intent = new Intent(this, SettingsActivity.class);
+    private void showStatistics() {
+        Intent intent = new Intent(this, StatisticActivity.class);
         startActivity(intent);
     }
 

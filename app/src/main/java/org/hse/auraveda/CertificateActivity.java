@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -40,15 +41,11 @@ public class CertificateActivity extends AppCompatActivity {
     private static final String KEY_CERTIFICATE_GENERATED = "certificateGenerated";
 
 
-
-
     private EditText firstNameInput, lastNameInput;
     private ImageView certificatePreview;
     private LinearLayout certificateButtons;
     private Bitmap certificateBitmap;
     private boolean isCertificateGenerated = false;
-
-
 
 
     @Override
@@ -57,14 +54,10 @@ public class CertificateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_certificate);
 
 
-
-
         firstNameInput = findViewById(R.id.firstNameInput);
         lastNameInput = findViewById(R.id.lastNameInput);
         certificatePreview = findViewById(R.id.certificatePreview);
         certificateButtons = findViewById(R.id.certificateButtons);
-
-
 
 
         // Восстановление состояния при повороте экрана
@@ -88,7 +81,6 @@ public class CertificateActivity extends AppCompatActivity {
 
 
 
-
         firstNameInput.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
                 lastNameInput.requestFocus();
@@ -98,26 +90,56 @@ public class CertificateActivity extends AppCompatActivity {
         });
 
 
-
-
         Button generateButton = findViewById(R.id.generateButton);
         generateButton.setOnClickListener(v -> generateCertificate());
-
-
-
 
         Button shareButton = findViewById(R.id.shareButton);
         shareButton.setOnClickListener(v -> shareCertificate());
 
-
-
-
         Button saveButton = findViewById(R.id.saveButton);
         saveButton.setOnClickListener(v -> saveCertificate());
+
+        // Находим кнопку по ID
+        ImageButton buttonHome = findViewById(R.id.bottomHome);
+        // Устанавливаем обработчик нажатия
+        buttonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHome();
+            }
+        });
+
+        // Находим кнопку по ID
+        ImageButton buttonStatistic = findViewById(R.id.bottomStatistic);
+        // Устанавливаем обработчик нажатия
+        buttonStatistic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showStatistics();
+            }
+        });
+        ImageButton buttonSettings = findViewById(R.id.bottomSettings);
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSettings();
+            }
+        });
+
+
     }
-
-
-
+    private void showHome() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    private void showStatistics() {
+        Intent intent = new Intent(this, StatisticActivity.class);
+        startActivity(intent);
+    }
+    private void showSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -128,21 +150,15 @@ public class CertificateActivity extends AppCompatActivity {
     }
 
 
-
-
     private void generateCertificate() {
         String firstName = firstNameInput.getText().toString().trim();
         String lastName = lastNameInput.getText().toString().trim();
-
-
 
 
         if (firstName.isEmpty() || lastName.isEmpty()) {
             Toast.makeText(this, "Пожалуйста, введите имя и фамилию", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
 
 
         certificateBitmap = createCertificateBitmap(firstName, lastName);
@@ -159,19 +175,13 @@ public class CertificateActivity extends AppCompatActivity {
         int height = 1000;
 
 
-
-
         // Создаем пустой bitmap
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
 
 
-
-
         // Фон сертификата (белый)
         canvas.drawColor(Color.WHITE);
-
-
 
 
         // Добавляем полупрозрачный логотип на фон
@@ -184,20 +194,14 @@ public class CertificateActivity extends AppCompatActivity {
             logoDrawable.draw(logoCanvas);
 
 
-
-
             // Создаем полупрозрачную версию логотипа
             Paint alphaPaint = new Paint();
             alphaPaint.setAlpha(100); // 50/255 ~20% прозрачности (можно регулировать)
 
 
-
-
             // Рисуем логотип на основном canvas
             canvas.drawBitmap(logoBitmap, 0, 0, alphaPaint);
         }
-
-
 
 
         // Рисуем зеленую рамку
@@ -206,8 +210,6 @@ public class CertificateActivity extends AppCompatActivity {
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(20);
         canvas.drawRect(10, 10, width - 10, height - 10, borderPaint);
-
-
 
 
         // Текст "ДИПЛОМ"
@@ -219,15 +221,11 @@ public class CertificateActivity extends AppCompatActivity {
         canvas.drawText("ДИПЛОМ", width / 2f, 200, titlePaint);
 
 
-
-
         // Основной текст
         Paint textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
         textPaint.setTextSize(40);
         textPaint.setTextAlign(Paint.Align.CENTER);
-
-
 
 
         String fullName = firstName + " " + lastName;
@@ -237,13 +235,9 @@ public class CertificateActivity extends AppCompatActivity {
         String line4 = "65%";
 
 
-
-
         canvas.drawText(line1, width / 2f, 350, textPaint);
         canvas.drawText(line2, width / 2f, 450, textPaint);
         canvas.drawText(line3, width / 2f, 550, textPaint);
-
-
 
 
         // Процент выполнения (зеленый и крупный)
@@ -255,18 +249,12 @@ public class CertificateActivity extends AppCompatActivity {
         canvas.drawText(line4, width / 2f, 700, percentPaint);
 
 
-
-
         return bitmap;
     }
 
 
-
-
     private void shareCertificate() {
         if (certificateBitmap == null) return;
-
-
 
 
         try {
@@ -277,14 +265,11 @@ public class CertificateActivity extends AppCompatActivity {
                     file);
 
 
-
-
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
             shareIntent.setType("image/png");
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
 
 
 
@@ -297,11 +282,8 @@ public class CertificateActivity extends AppCompatActivity {
 
 
 
-
     private void saveCertificate() {
         if (certificateBitmap == null) return;
-
-
 
 
         try {
@@ -314,14 +296,10 @@ public class CertificateActivity extends AppCompatActivity {
     }
 
 
-
-
     private File saveCertificateToCache() throws IOException {
         File cachePath = new File(getCacheDir(), "images");
         cachePath.mkdirs();
         File file = new File(cachePath, "certificate.png");
-
-
 
 
         FileOutputStream stream = new FileOutputStream(file);
@@ -329,12 +307,8 @@ public class CertificateActivity extends AppCompatActivity {
         stream.close();
 
 
-
-
         return file;
     }
-
-
 
 
     private File saveCertificateToExternalStorage() throws IOException {
@@ -342,12 +316,8 @@ public class CertificateActivity extends AppCompatActivity {
         String imageFileName = "AYURVEDA_CERTIFICATE_" + timeStamp + ".png";
 
 
-
-
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File file = new File(storageDir, imageFileName);
-
-
 
 
         FileOutputStream stream = new FileOutputStream(file);
@@ -355,14 +325,10 @@ public class CertificateActivity extends AppCompatActivity {
         stream.close();
 
 
-
-
         // Обновляем галерею
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(Uri.fromFile(file));
         sendBroadcast(mediaScanIntent);
-
-
 
 
         return file;
