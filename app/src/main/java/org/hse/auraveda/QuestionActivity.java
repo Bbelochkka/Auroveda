@@ -96,6 +96,17 @@ public class QuestionActivity extends AppCompatActivity {
         startTimer();
         setupQuestionIndicators();
         setupNavigationButtons();
+        setupAnswerButtonsListeners();
+        showQuestion(0);
+        setUpFavouriteListener();
+
+
+    }
+
+    private void setUpFavouriteListener(){
+        TextView favourite = findViewById(R.id.favorite);
+        Question currentQuestion = questions.get(currentQuestionIndex);
+        favourite.setOnClickListener(v -> dbHelper.addFavourite(currentQuestion.getId()));
         showQuestion(currentQuestionIndex);
     }
 
@@ -241,6 +252,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
 
+
     private void checkAnswerImmediately(Button selectedButton, Question question) {
         // Сбрасываем цвета всех кнопок текущего вопроса перед обработкой нового ответа
         LinearLayout answerLayout = findViewById(R.id.answerOptions);
@@ -267,6 +279,7 @@ public class QuestionActivity extends AppCompatActivity {
             // Подсвечиваем выбранную кнопку красным
             selectedButton.setBackgroundTintList(ColorStateList.valueOf(
                     ContextCompat.getColor(this, R.color.wrong_answer)));
+
 
             if (!dbHelper.isMistakeExists(question.getId())) {
                 dbHelper.addMistake(question.getId());
@@ -335,6 +348,8 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
+
+        setUpFavouriteListener();
 
     private boolean allQuestionsAnswered() {
         for (int result : answerResults) {

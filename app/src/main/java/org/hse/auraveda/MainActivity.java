@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Находим кнопку по ID
         Button buttonCard = findViewById(R.id.buttonCard);
+        Button buttonFavourite = findViewById(R.id.buttonFavourite);
+        Button buttonMistake = findViewById(R.id.buttonMistakes);
 
 
         // Устанавливаем обработчик нажатия
@@ -43,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
                 showTickets();
             }
         });
+        buttonFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFavourite();
+            }
+        });
+        buttonMistake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMistake();
+
 
         // Находим кнопку по ID
         ImageButton buttonStatistic = findViewById(R.id.bottomStatistic);
@@ -53,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showStatistics();
+
             }
         });
 
@@ -64,10 +78,22 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void showFavourite() {
+        Intent intent = new Intent(this, FavouriteActivity.class);
+        startActivity(intent);
+    }
+    private void showMistake() {
+        Intent intent = new Intent(this, MistakeActivity.class);
+        startActivity(intent);
+    }
+}
+
+
 
     private void showStatistics() {
         Intent intent = new Intent(this, StatisticActivity.class);
         startActivity(intent);
     }
 }
+
 
