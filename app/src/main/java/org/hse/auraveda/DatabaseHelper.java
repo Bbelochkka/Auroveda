@@ -155,7 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void addMistake(int questionId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        logTableStructure();
+        //logTableStructure();
         if (isMistakeExists(questionId)) {
             Toast.makeText(context, "Вопрос уже в ошибках", Toast.LENGTH_LONG).show();
         }
@@ -185,9 +185,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public void logTableStructure() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("PRAGMA table_info(mistakes)", null);
+        Cursor cursor = db.rawQuery("PRAGMA table_info(card_statistic)", null);
 
-        Log.d("TABLE_DEBUG", "Структура таблицы 'mistakes':");
+        Log.d("TABLE_DEBUG", "Структура таблицы 'card_statistic':");
         int version = db.getVersion();
         Log.d("TABLE_DEBUG", "Текущая версия БД: " + version);
         while (cursor.moveToNext()) {
@@ -320,5 +320,98 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             questCursor.close();
         }
         return questions;
+    }
+    public void saveTestResult(int cardId, int score) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            // Проверяем существование записи
+            Cursor cursor = db.rawQuery("SELECT * FROM card_statistic WHERE card_id = ?",
+                    new String[]{String.valueOf(cardId)});
+
+            if (cursor.moveToFirst()) {
+                // Обновляем существующую запись
+                int currentBestScore = cursor.getInt(cursor.getColumnIndexOrThrow("card_score"));
+                int currentBestTry = cursor.getInt(cursor.getColumnIndexOrThrow("card_best_try"));
+
+                ContentValues values = new ContentValues();
+                values.put("card_best_try", currentBestTry + 1);
+
+                // Обновляем лучший результат, если текущий лучше
+                if (score > currentBestScore) {
+                    values.put("card_score", score);
+                }
+
+                int rows = db.update("card_statistic", values, "card_id = ?",
+                        new String[]{String.valueOf(cardId)});
+
+                Log.d("DB_UPDATE", "Обновлено строк: " + rows);
+            } else {
+                // Создаем новую запись
+                ContentValues values = new ContentValues();
+                values.put("card_id", cardId);
+                values.put("card_score", score);
+                values.put("card_best_try", 1);
+
+                long id = db.insert("card_statistic", null, values);
+
+                if (id == -1) {
+                    Log.e("DB_ERROR", "Ошибка вставки записи");
+                } else {
+                    Log.d("DB_INSERT", "Добавлена запись с ID: " + id);
+                }
+            }
+            cursor.close();
+
+            // Проверяем результат
+            logTableContent("card_statistic");
+
+        } catch (Exception e) {
+            Log.e("DB_EXCEPTION", "Ошибка при сохранении результата: " + e.getMessage());
+        }
+    }
+    private void logTableContent(String tableName) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + tableName, null);
+
+        Log.d("TABLE DEBUG ", "Содержимое таблицы '" + tableName + "':");
+
+        // Получаем имена колонок
+        String[] columnNames = cursor.getColumnNames();
+        StringBuilder columns = new StringBuilder();
+        for (String name : columnNames) {
+            columns.append(name).append(" | ");
+        }
+        Log.d("TABLE DEBUG", "Колонки: " + columns.toString());
+
+        // Выводим данные
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") int statId = cursor.getInt(cursor.getColumnIndex("card_statictic_id"));
+                @SuppressLint("Range") int cardId = cursor.getInt(cursor.getColumnIndex("card_id"));
+                @SuppressLint("Range") int score = cursor.getInt(cursor.getColumnIndex("card_score"));
+                @SuppressLint("Range") int bestTry = cursor.getInt(cursor.getColumnIndex("card_best_try"));
+
+                Log.d("TABLE DEBUG ", String.format(
+                        "ID: %d | Card ID: %d | Score: %d | Best Try: %d",
+                        statId, cardId, score, bestTry
+                ));
+            } while (cursor.moveToNext());
+        } else {
+            Log.d("TABLE DEBUG ", "Таблица пуста");
+        }
+        cursor.close();
+    }
+
+    public int getBestScoreForCard(int cardId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT card_score FROM card_statistic WHERE card_id = ?",
+                new String[]{String.valueOf(cardId)});
+
+        int bestScore = 0;
+        if (cursor.moveToFirst()) {
+            bestScore = cursor.getInt(0);
+        }
+        cursor.close();
+        return bestScore;
     }
 }

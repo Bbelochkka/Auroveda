@@ -309,25 +309,14 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
 
-    private void showCorrectAnswers(Question question) {
-        LinearLayout answerLayout = findViewById(R.id.answerOptions);
-        for (int i = 0; i < answerLayout.getChildCount(); i++) {
-            Button button = (Button) answerLayout.getChildAt(i);
-            String optionText = button.getText().toString();
 
-            if (optionText.equals(question.getCorrectAnswer())) {
-                button.setBackgroundColor(ContextCompat.getColor(this, R.color.correct_answer));
-            }
-            button.setEnabled(false);
-        }
-    }
 
 
 
     private void updateNavigationButtons() {
         Button nextButton = findViewById(R.id.nextQuestionButton);
         nextButton.setEnabled(currentQuestionIndex < questions.size() - 1);
-        //finishTestButton.setEnabled(allQuestionsAnswered());
+
     }
 
 
@@ -372,11 +361,18 @@ public class QuestionActivity extends AppCompatActivity {
             timer.cancel();
         }
 
-
+        // Рассчитываем процент правильных ответов
         double percentage = (double) correctAnswers / questions.size() * 100;
-        String message = String.format("Тест завершен!\n\nПравильных ответов: %d\nОшибок: %d\nУспешность: %.1f%%\n\n%s",
-                correctAnswers, wrongAnswers, percentage, getMotivationalMessage(percentage));
+        int score = (int) Math.round(percentage); // Округляем до целого числа
 
+        // Сохраняем результат в базу данных
+        dbHelper.saveTestResult(getCardId(), score);
+
+        // Получаем лучший результат для этого билета
+        int bestScore = dbHelper.getBestScoreForCard(getCardId());
+
+        String message = String.format("Тест завершен!\n\nПравильных ответов: %d\nОшибок: %d\nУспешность: %.1f%%\nЛучший результат: %d%%\n\n%s",
+                correctAnswers, wrongAnswers, percentage, bestScore, getMotivationalMessage(percentage));
 
         new AlertDialog.Builder(this)
                 .setTitle("Результаты теста")
