@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+
 
 
 public class StatisticActivity extends AppCompatActivity {
@@ -17,6 +20,7 @@ public class StatisticActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_statistic);
+
 
         // Используем корневой ConstraintLayout из XML
         View rootView = findViewById(R.id.rootConstraintLayout);
@@ -28,21 +32,29 @@ public class StatisticActivity extends AppCompatActivity {
             });
         }
 
+
         // Находим кнопку по ID
-        Button buttonCertificate = findViewById(R.id.getCertificate);
+        Button buttonCard = findViewById(R.id.getCertificate);
+
+
 
 
         // Устанавливаем обработчик нажатия
-        buttonCertificate.setOnClickListener(new View.OnClickListener() {
+        buttonCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showCertificate();
             }
         });
 
+
     }
     private void showCertificate() {
-        Intent intent = new Intent(this, TicketsActivity.class);
+        Intent intent = new Intent(this, CertificateActivity.class);
         startActivity(intent);
     }
 }
+
+
+
+
