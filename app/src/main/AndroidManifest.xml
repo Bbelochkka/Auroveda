@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -12,18 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Auraveda"
         tools:targetApi="31">
-
-        <!-- MainActivity должна быть основной launchable активностью -->
+        <activity
+            android:name=".MistakeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavouriteActivity"
+            android:exported="false" /> <!-- MainActivity должна быть основной launchable активностью -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- QuestionActivity не должна быть launchable -->
+        </activity> <!-- QuestionActivity не должна быть launchable -->
         <activity
             android:name=".QuestionActivity"
             android:exported="false" />

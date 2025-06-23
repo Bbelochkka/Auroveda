@@ -59,6 +59,15 @@ public class QuestionActivity extends AppCompatActivity {
         setupNavigationButtons();
         setupAnswerButtonsListeners();
         showQuestion(0);
+        setUpFavouriteListener();
+
+
+    }
+
+    private void setUpFavouriteListener(){
+        TextView favourite = findViewById(R.id.favorite);
+        Question currentQuestion = questions.get(currentQuestionIndex);
+        favourite.setOnClickListener(v -> dbHelper.addFavourite(currentQuestion.getId()));
     }
 
     private void setupQuestionIndicators() {
@@ -111,6 +120,7 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
+
     private void checkAnswer(AppCompatButton selectedButton) {
         Question currentQuestion = questions.get(currentQuestionIndex);
         String selectedAnswer = selectedButton.getText().toString();
@@ -128,6 +138,8 @@ public class QuestionActivity extends AppCompatActivity {
 
             if (!dbHelper.isMistakeExists(currentQuestion.getId())) {
                 dbHelper.addMistake(currentQuestion.getId());
+
+
             }
         }
         disableAnswerButtons();
@@ -198,6 +210,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         resetAnswerButtons();
         updateQuestionIndicators(index);
+        setUpFavouriteListener();
     }
 
     private void updateQuestionIndicators(int currentIndex) {

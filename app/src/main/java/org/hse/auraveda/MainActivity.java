@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Находим кнопку по ID
         Button buttonCard = findViewById(R.id.buttonCard);
+        Button buttonFavourite = findViewById(R.id.buttonFavourite);
+        Button buttonMistake = findViewById(R.id.buttonMistakes);
 
         // Устанавливаем обработчик нажатия
         buttonCard.setOnClickListener(new View.OnClickListener() {
@@ -34,9 +36,30 @@ public class MainActivity extends AppCompatActivity {
                 showTickets();
             }
         });
+        buttonFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFavourite();
+            }
+        });
+        buttonMistake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMistake();
+            }
+        });
+
     }
     private void showTickets() {
         Intent intent = new Intent(this, TicketsActivity.class);
+        startActivity(intent);
+    }
+    private void showFavourite() {
+        Intent intent = new Intent(this, FavouriteActivity.class);
+        startActivity(intent);
+    }
+    private void showMistake() {
+        Intent intent = new Intent(this, MistakeActivity.class);
         startActivity(intent);
     }
 }
