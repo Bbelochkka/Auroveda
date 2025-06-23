@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         // Находим кнопку по ID
         Button buttonCard = findViewById(R.id.buttonCard);
 
-
         // Устанавливаем обработчик нажатия
         buttonCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Находим кнопку по ID
         ImageButton buttonStatistic = findViewById(R.id.bottomStatistic);
-
-
         // Устанавливаем обработчик нажатия
         buttonStatistic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,15 +67,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton buttonSettings = findViewById(R.id.bottomSettings);
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSettings();
+            }
+        });
     }
 
 
+    private void showSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
     private void showTickets() {
         Intent intent = new Intent(this, TicketsActivity.class);
         startActivity(intent);
     }
-
-
     private void showStatistics() {
         Intent intent = new Intent(this, StatisticActivity.class);
         startActivity(intent);

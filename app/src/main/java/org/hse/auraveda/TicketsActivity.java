@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -79,5 +80,45 @@ public class TicketsActivity extends AppCompatActivity {
             buttonsContainer.addView(button);
         }
 
+        // Находим кнопку по ID
+        ImageButton buttonHome = findViewById(R.id.bottomHome);
+        // Устанавливаем обработчик нажатия
+        buttonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHome();
+            }
+        });
+
+        // Находим кнопку по ID
+        ImageButton buttonStatistic = findViewById(R.id.bottomStatistic);
+        // Устанавливаем обработчик нажатия
+        buttonStatistic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showStatistics();
+            }
+        });
+        ImageButton buttonSettings = findViewById(R.id.bottomSettings);
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSettings();
+            }
+        });
+
+
+    }
+    private void showHome() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    private void showStatistics() {
+        Intent intent = new Intent(this, StatisticActivity.class);
+        startActivity(intent);
+    }
+    private void showSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }
