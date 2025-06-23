@@ -96,7 +96,7 @@ public class QuestionActivity extends AppCompatActivity {
         startTimer();
         setupQuestionIndicators();
         setupNavigationButtons();
-        setupAnswerButtonsListeners();
+
         showQuestion(0);
         setUpFavouriteListener();
 
@@ -249,6 +249,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         updateNavigationButtons();
         updateQuestionIndicators();
+        //setUpFavouriteListener();
     }
 
 
@@ -349,7 +350,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
 
-        setUpFavouriteListener();
+
 
     private boolean allQuestionsAnswered() {
         for (int result : answerResults) {
