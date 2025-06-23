@@ -122,7 +122,6 @@
                 style="@style/QuestionIndicatorButton"
                 android:background="#D4E6B5"
                 android:text="10" />
-            <!-- Остальные кнопки аналогично -->
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -202,41 +201,32 @@
         android:id="@+id/navigationButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="16dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="8dp">
-
-
-            <Button
-                android:id="@+id/nextQuestionButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Следующий вопрос"
-                style="@style/NextButton"/>
-        </LinearLayout>
-
-
         <Button
             android:id="@+id/finishTestButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Завершить тест"
             style="@style/NextButton"
             android:enabled="false"/>
+
+        <Button
+            android:id="@+id/nextQuestionButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Следующий вопрос"
+            style="@style/NextButton"
+            android:layout_marginEnd="8dp"/>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
