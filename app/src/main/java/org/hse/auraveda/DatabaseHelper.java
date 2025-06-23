@@ -397,7 +397,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ));
             } while (cursor.moveToNext());
         } else {
-            Log.d("TABLE DEBUG ", "Таблица пуста");
+            Log.d("TABLE DEBUG", "Таблица пуста");
         }
         cursor.close();
     }
@@ -413,5 +413,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return bestScore;
+    }
+    public void clearStatistics() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            int deletedRows = db.delete("card_statistic", null, null);
+            Log.d("TABLE DEBUG", "Удалено записей статистики: " + deletedRows);
+            Toast.makeText(context, "Статистика очищена", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e("TABLE DEBUG", "Ошибка при очистке статистики: " + e.getMessage());
+            Toast.makeText(context, "Ошибка при очистке статистики", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Очистка ошибок
+    public void clearMistakes() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            int deletedRows = db.delete("mistakes", null, null);
+            Log.d("TABLE DEBUG", "Удалено записей ошибок: " + deletedRows);
+            Toast.makeText(context, "Ошибки очищены", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e("TABLE DEBUG", "Ошибка при очистке ошибок: " + e.getMessage());
+            Toast.makeText(context, "Ошибка при очистке ошибок", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Очистка избранного
+    public void clearFavorites() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            int deletedRows = db.delete("favourite", null, null);
+            Log.d("TABLE DEBUG", "Удалено записей избранного: " + deletedRows);
+            Toast.makeText(context, "Избранное очищено", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e("TABLE DEBUG", "Ошибка при очистке избранного: " + e.getMessage());
+            Toast.makeText(context, "Ошибка при очистке избранного", Toast.LENGTH_SHORT).show();
+        }
     }
 }

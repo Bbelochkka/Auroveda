@@ -62,6 +62,7 @@ public class MistakeActivity extends AppCompatActivity {
 
         if (mistakes.isEmpty()) {
             Toast.makeText(this, "Нет вопросов с ошибками", Toast.LENGTH_SHORT).show();
+            finish();
             return;
         }
 

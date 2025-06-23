@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -29,6 +30,40 @@ public class SettingsActivity extends AppCompatActivity {
                 return insets;
             });
         }
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+
+        // Обработчик для кнопки "Обнулить ошибки"
+        Button deleteMistakesBtn = findViewById(R.id.deleteMistakes);
+        deleteMistakesBtn.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Подтверждение")
+                    .setMessage("Вы уверены, что хотите очистить все ошибки?")
+                    .setPositiveButton("Да", (dialog, which) -> dbHelper.clearMistakes())
+                    .setNegativeButton("Отмена", null)
+                    .show();
+        });
+
+        // Обработчик для кнопки "Обнулить статистику"
+        Button clearStatisticsBtn = findViewById(R.id.clearStatistics);
+        clearStatisticsBtn.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Подтверждение")
+                    .setMessage("Вы уверены, что хотите очистить всю статистику?")
+                    .setPositiveButton("Да", (dialog, which) -> dbHelper.clearStatistics())
+                    .setNegativeButton("Отмена", null)
+                    .show();
+        });
+
+        // Обработчик для кнопки "Обнулить избранное"
+        Button clearFavouriteBtn = findViewById(R.id.clearFavourite);
+        clearFavouriteBtn.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Подтверждение")
+                    .setMessage("Вы уверены, что хотите очистить все избранное?")
+                    .setPositiveButton("Да", (dialog, which) -> dbHelper.clearFavorites())
+                    .setNegativeButton("Отмена", null)
+                    .show();
+        });
 
 
         // Находим кнопку по ID

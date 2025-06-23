@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     android:background="#1A6C3F">
 
-    <!-- Верхняя панель -->
+
+    <!-- Верхняя панель с заголовком -->
     <TextView
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -23,29 +24,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- ScrollView для прокрутки кнопок -->
+
+    <!-- Кнопка получения сертификата -->
     <Button
         android:id="@+id/getCertificate"
-        style="@style/MainButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Получить серификат"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#CDE09B"
+        android:text="Получить сертификат"
+        android:textColor="#004D1A"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBar" />
 
+
+    <!-- Основной контейнер для статистики с прокруткой -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/getCertificate">
 
+
+        <!-- Контейнер для карточек статистики -->
         <LinearLayout
             android:id="@+id/buttonsContainer"
             android:layout_width="match_parent"
@@ -53,9 +63,13 @@
             android:orientation="vertical"
             android:padding="8dp">
 
-            <!-- Кнопки будут добавляться динамически -->
+
+            <!-- Карточки будут добавляться динамически -->
+
+
         </LinearLayout>
     </ScrollView>
+
 
     <!-- Нижняя навигация -->
     <include
@@ -67,4 +81,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
