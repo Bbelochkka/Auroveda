@@ -369,6 +369,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.e("DB_EXCEPTION", "Ошибка при сохранении результата: " + e.getMessage());
         }
     }
+    public int calculateOverallProgress() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int totalCards = 150; // У вас 15 билетов
+        int totalPossibleScore = totalCards * 10; // 10 вопросов в каждом билете
+        int totalActualScore = 0;
+
+        // Получаем сумму всех лучших результатов по карточкам
+        Cursor cursor = db.rawQuery("SELECT SUM(card_score) FROM card_statistic", null);
+        if (cursor.moveToFirst()) {
+            totalActualScore = cursor.getInt(0);
+        }
+        cursor.close();
+
+        // Рассчитываем процент
+        if (totalPossibleScore > 0) {
+            return (int) (((float) totalActualScore / totalPossibleScore) * 100);
+        }
+        return 0;
+    }
     private void logTableContent(String tableName) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + tableName, null);
