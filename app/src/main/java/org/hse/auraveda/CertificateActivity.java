@@ -1,8 +1,4 @@
 package org.hse.auraveda;
-
-
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -31,8 +27,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-
 
 
 public class CertificateActivity extends AppCompatActivity {
@@ -108,10 +102,7 @@ public class CertificateActivity extends AppCompatActivity {
                 showHome();
             }
         });
-
-        // Находим кнопку по ID
         ImageButton buttonStatistic = findViewById(R.id.bottomStatistic);
-        // Устанавливаем обработчик нажатия
         buttonStatistic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,12 +170,10 @@ public class CertificateActivity extends AppCompatActivity {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
 
-
-        // Фон сертификата (белый)
+        // Фон сертификата
         canvas.drawColor(Color.WHITE);
 
-
-        // Добавляем полупрозрачный логотип на фон
+        // Добавляем логотип на фон
         Drawable logoDrawable = ContextCompat.getDrawable(this, R.drawable.lotus);
         if (logoDrawable != null) {
             // Создаем bitmap из drawable
@@ -196,7 +185,7 @@ public class CertificateActivity extends AppCompatActivity {
 
             // Создаем полупрозрачную версию логотипа
             Paint alphaPaint = new Paint();
-            alphaPaint.setAlpha(100); // 50/255 ~20% прозрачности (можно регулировать)
+            alphaPaint.setAlpha(100); //Чтобы менять прозрачность
 
 
             // Рисуем логотип на основном canvas
@@ -239,16 +228,13 @@ public class CertificateActivity extends AppCompatActivity {
         canvas.drawText(line2, width / 2f, 450, textPaint);
         canvas.drawText(line3, width / 2f, 550, textPaint);
 
-
-        // Процент выполнения (зеленый и крупный)
+        // Процент выполнения
         Paint percentPaint = new Paint();
         percentPaint.setColor(Color.parseColor("#1A6C3F"));
         percentPaint.setTextSize(100);
         percentPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         percentPaint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText(line4, width / 2f, 700, percentPaint);
-
-
         return bitmap;
     }
 

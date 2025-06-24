@@ -81,7 +81,6 @@
             android:orientation="horizontal">
 
 
-            <!-- Пример кнопок -->
             <androidx.appcompat.widget.AppCompatButton
                 style="@style/QuestionIndicatorButton"
                 android:background="#D4E6B5"

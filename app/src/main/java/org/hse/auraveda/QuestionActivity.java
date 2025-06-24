@@ -122,8 +122,6 @@ public class QuestionActivity extends AppCompatActivity {
         outState.putInt(KEY_WRONG_ANSWERS, wrongAnswers);
     }
 
-
-    // Остальные методы остаются без изменений
     private void startTimer() {
         timer = new CountDownTimer(timeLeftMillis, 1000) {
             @Override

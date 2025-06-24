@@ -75,9 +75,6 @@
             android:orientation="horizontal">
 
 
-
-
-            <!-- Пример кнопок -->
             <androidx.appcompat.widget.AppCompatButton
                 style="@style/QuestionIndicatorButton"
                 android:background="#D4E6B5"
@@ -118,7 +115,6 @@
                 style="@style/QuestionIndicatorButton"
                 android:background="#D4E6B5"
                 android:text="10" />
-            <!-- Остальные кнопки аналогично -->
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -169,8 +165,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="16dp">
-
-
 
 
                 <androidx.appcompat.widget.AppCompatButton

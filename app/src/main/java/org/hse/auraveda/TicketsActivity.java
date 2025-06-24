@@ -60,7 +60,6 @@ public class TicketsActivity extends AppCompatActivity {
 
         // Динамическое создание кнопок
         for (Ticket ticket : tickets) {
-            // Инфлейтим макет кнопки
             Button button = (Button) inflater.inflate(
                     R.layout.item_button,
                     buttonsContainer,

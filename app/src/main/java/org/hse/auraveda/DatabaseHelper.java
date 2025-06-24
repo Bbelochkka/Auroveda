@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "auroveda.db"; // Используйте правильное имя
+    private static final String DATABASE_NAME = "auroveda.db";
     private static final int DATABASE_VERSION = 2;
     private final Context context;
     private String dbPath;

@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Находим кнопку по ID
         Button buttonCard = findViewById(R.id.buttonCard);
-
         // Устанавливаем обработчик нажатия
         buttonCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Находим кнопку по ID
         ImageButton buttonStatistic = findViewById(R.id.bottomStatistic);
-        // Устанавливаем обработчик нажатия
         buttonStatistic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

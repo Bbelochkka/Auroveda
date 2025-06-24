@@ -92,7 +92,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </android.widget.ScrollView>
 
-    <!-- Нижняя навигация (может потребоваться корректировка) -->
     <include
         android:id="@+id/bottomNavigation"
         layout="@layout/bottom_navigation"

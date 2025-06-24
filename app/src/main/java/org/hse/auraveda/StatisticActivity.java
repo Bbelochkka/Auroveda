@@ -26,14 +26,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 
 public class StatisticActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_statistic);
-
 
         View rootView = findViewById(R.id.rootConstraintLayout);
         ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
@@ -42,10 +39,8 @@ public class StatisticActivity extends AppCompatActivity {
             return insets;
         });
 
-
         initNavigationButtons();
         loadStatistics();
-
 
         Button buttonCard = findViewById(R.id.getCertificate);
         buttonCard.setOnClickListener(v -> showCertificate());
